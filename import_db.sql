@@ -7,7 +7,10 @@ CREATE TABLE users (
 CREATE TABLE questions (
 	id INTEGER PRIMARY KEY,
 	title VARCHAR(255) NOT NULL,
-	body VARCHAR(255) NOT NULL
+	body VARCHAR(255) NOT NULL,
+	author_id INTEGER NOT NULL,
+
+	FOREIGN KEY (author_id) REFERENCES users(id)
 );
 
 CREATE TABLE question_followers (
@@ -21,12 +24,12 @@ CREATE TABLE question_followers (
 
 CREATE TABLE replies (
 	id INTEGER PRIMARY KEY,
-	subject_question INTEGER NOT NULL,
+	question_id INTEGER NOT NULL,
 	parent_reply_id INTEGER,
-	user_id VARCHAR(255) NOT NULL,
+	author_id INTEGER NOT NULL,
 	body VARCHAR(255) NOT NULL,
 
-	FOREIGN KEY (user_id) REFERENCES users(id)
+	FOREIGN KEY (author_id) REFERENCES users(id)
 );
 
 CREATE TABLE question_likes (
@@ -45,10 +48,10 @@ VALUES
   ('Anthony', 'Nassar');
 
 INSERT INTO
-	questions (title, body)
+	questions (title, body, author_id)
 VALUES
-	('You mad?', 'Why you mad?'),
-  ('You MAD BRO?', 'Why you mad bro?');
+	('You mad?', 'Why you mad?', 1),
+  ('You MAD BRO?', 'Why you mad bro?', 1);
 
 INSERT INTO
 	question_followers (user_id, question_id)
@@ -57,7 +60,7 @@ VALUES
   (2, 2);
 
 INSERT INTO
-	replies (subject_question, parent_reply_id, user_id, body)
+	replies (question_id, parent_reply_id, author_id, body)
 VALUES
 	(1, null, 1, "Nah"),
   (1, 1, 2, "ya you mad");

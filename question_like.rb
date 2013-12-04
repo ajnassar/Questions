@@ -1,6 +1,6 @@
 require_relative 'QuestionsDatabase.rb'
 
-class QuestionFollowers
+class QuestionLike
   attr_accessor :id, :user_id, :question_id
   def initialize(options)
     @id = options["id"]
@@ -9,14 +9,14 @@ class QuestionFollowers
   end
 
   def self.find_by_id(id)
-    found_question_followers = QuestionsDatabase.instance.execute(<<-SQL, :id => id)
+    found_question_likes = QuestionsDatabase.instance.execute(<<-SQL, :id => id)
     SELECT
       *
     FROM
-      question_followers
+      question_likes
     WHERE
       id = :id
     SQL
-    QuestionFollowers.new(found_question_followers[0])
+    QuestionLike.new(found_question_likes[0])
   end
 end

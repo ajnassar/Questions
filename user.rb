@@ -1,6 +1,7 @@
 require_relative 'QuestionsDatabase.rb'
-
-class Users
+require_relative 'question.rb'
+require_relative 'reply.rb'
+class User
   attr_accessor :id, :fname, :lname
   def initialize(options)
     @id = options["id"]
@@ -16,8 +17,10 @@ class Users
       users
     WHERE
       id = :id
+    LIMIT
+      1
     SQL
-    Users.new(found_user[0])
+    User.new(found_user[0])
   end
 
   def self.find_by_name(fname, lname)
@@ -28,30 +31,41 @@ class Users
       users
     WHERE
       fname = :fname AND lname = :lname
+    LIMIT
+      1
     SQL
-    Users.new(found_user[0])
+    User.new(found_user[0])
   end
 
   def authored_questions
-    found_questions = QuestionsDatabase.instance.execute(<<-SQL, :author_id => self.id)
-    SELECT
-      question_id
-    FROM
-      question_followers
-    WHERE
-      user_id = :author_id
-    SQL
+    Question.find_by_author_id(self.id)
+    # found_questions = QuestionsDatabase.instance.execute(<<-SQL, :author_id => self.id)
+#     SELECT
+#       *
+#     FROM
+#       questions
+#     WHERE
+#       author_id = :author_id
+#     SQL
+#
+#     found_questions.map do |question|
+#       Question.new(question)
+#     end
   end
 
   def authored_replies
     found_replies = QuestionsDatabase.instance.execute(<<-SQL, :author_id => self.id)
     SELECT
-      id
+      *
     FROM
       replies
     WHERE
-      user_id = :author_id
+      author_id = :author_id
     SQL
+
+    found_replies.map do |reply|
+      Reply.new(reply)
+    end
   end
 
 end

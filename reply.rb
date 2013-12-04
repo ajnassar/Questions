@@ -1,12 +1,12 @@
 require_relative 'QuestionsDatabase.rb'
 
-class Replies
-  attr_accessor :id, :subject_question, :parent_reply_id, :user_id, :body
+class Reply
+  attr_accessor :id, :subject_question, :parent_reply_id, :author_id, :body
   def initialize(options)
     @id = options["id"]
     @subject_question = options["subject_question"]
     @parent_reply_id = options["parent_reply_id"]
-    @user_id = options["user_id"]
+    @author_id = options["author_id"]
     @body = options["body"]
   end
 
@@ -19,6 +19,8 @@ class Replies
     WHERE
       id = :id
     SQL
-    Replies.new(found_replies[0])
+    Reply.new(found_replies[0])
   end
+
+
 end
