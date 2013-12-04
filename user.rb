@@ -54,18 +54,22 @@ class User
   end
 
   def authored_replies
-    found_replies = QuestionsDatabase.instance.execute(<<-SQL, :author_id => self.id)
-    SELECT
-      *
-    FROM
-      replies
-    WHERE
-      author_id = :author_id
-    SQL
+    Reply.find_by_user_id(self.id)
 
-    found_replies.map do |reply|
-      Reply.new(reply)
-    end
+    # found_replies = QuestionsDatabase.instance.execute(<<-SQL, :author_id => self.id)
+#     SELECT
+#       *
+#     FROM
+#       replies
+#     WHERE
+#       author_id = :author_id
+#     SQL
+#
+#     found_replies.map do |reply|
+#       Reply.new(reply)
+#     end
   end
+
+
 
 end
