@@ -32,4 +32,26 @@ class Users
     Users.new(found_user[0])
   end
 
+  def authored_questions
+    found_questions = QuestionsDatabase.instance.execute(<<-SQL, :author_id => self.id)
+    SELECT
+      question_id
+    FROM
+      question_followers
+    WHERE
+      user_id = :author_id
+    SQL
+  end
+
+  def authored_replies
+    found_replies = QuestionsDatabase.instance.execute(<<-SQL, :author_id => self.id)
+    SELECT
+      id
+    FROM
+      replies
+    WHERE
+      user_id = :author_id
+    SQL
+  end
+
 end
