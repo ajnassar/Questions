@@ -19,4 +19,17 @@ class Users
     SQL
     Users.new(found_user[0])
   end
+
+  def self.find_by_name(fname, lname)
+    found_user = QuestionsDatabase.instance.execute(<<-SQL, :fname => fname, :lname => lname)
+    SELECT
+      *
+    FROM
+      users
+    WHERE
+      fname = :fname AND lname = :lname
+    SQL
+    Users.new(found_user[0])
+  end
+
 end
