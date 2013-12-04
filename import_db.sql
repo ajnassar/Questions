@@ -62,8 +62,12 @@ VALUES
 INSERT INTO
 	replies (question_id, parent_reply_id, author_id, body)
 VALUES
-	(1, null, 1, "Nah"),
-  (1, 1, 2, "ya you mad");
+	(1, null, 1, "Parent reply"),
+  (1, 1, 2, "child reply 1"),
+
+	(1, 1, 1, "child reply 2"),
+	(1, 1, 1, "child reply 2"),
+	(1, 4, 2, "Child reply 3");
 
 
 INSERT INTO

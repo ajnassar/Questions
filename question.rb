@@ -66,4 +66,8 @@ class Question
     end
   end
 
+  def followers
+    QuestionFollower.followers_for_question_id(self.id)
+  end
+
 end
