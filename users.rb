@@ -1,25 +1,22 @@
 require_relative 'QuestionsDatabase.rb'
 
 class Users
-  attr_accessor :id
+  attr_accessor :id, :fname, :lname
   def initialize(options)
-    @id = options[id]
-    @fname = options[fname]
-    @lname = options[lname]
+    @id = options["id"]
+    @fname = options["fname"]
+    @lname = options["lname"]
   end
 
-  def find_by_id(id)
+  def self.find_by_id(id)
     found_user = QuestionsDatabase.instance.execute(<<-SQL, :id => id)
     SELECT
       *
     FROM
-      Users
+      users
     WHERE
       id = :id
     SQL
-
-    found_user.last_insert_row_id
+    Users.new(found_user[0])
   end
-
-
 end
