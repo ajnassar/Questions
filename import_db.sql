@@ -45,19 +45,30 @@ INSERT INTO
 	users (fname, lname)
 VALUES
 	('Jacob', 'Haile'),
-  ('Anthony', 'Nassar');
+  ('Anthony', 'Nassar'),
+	('Anthony', '1'),
+	('Anthony', '2'),
+	('Anthony', '3');
 
 INSERT INTO
 	questions (title, body, author_id)
 VALUES
 	('You mad?', 'Why you mad?', 1),
-  ('You MAD BRO?', 'Why you mad bro?', 1);
+  ('You MAD BRO?', 'Why you mad bro?', 1),
+	('question 3', 'body 3', 2);
 
 INSERT INTO
 	question_followers (user_id, question_id)
 VALUES
-	(1, 1),
-  (2, 2);
+	(1, 3),
+	(2, 3),
+	(3, 3),
+	(4, 3),
+	(5, 3),
+  (2, 2),
+	(3, 2),
+	(4, 2),
+	(3, 1);
 
 INSERT INTO
 	replies (question_id, parent_reply_id, author_id, body)
@@ -73,7 +84,13 @@ VALUES
 INSERT INTO
 	question_likes (user_id, question_id)
 VALUES
-	(1, 1),
+	(1, 3),
+	(2, 3),
+	(3, 3),
+	(4, 3),
+	(5, 1),
+	(1, 2),
+	(3, 2),
   (2, 2);
 
 
