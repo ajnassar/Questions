@@ -1,6 +1,6 @@
 require_relative 'QuestionsDatabase.rb'
 require_relative 'reply.rb'
-
+require_relative 'question_like.rb'
 class Question
   attr_accessor :id, :title, :body, :author_id
   def initialize(options)
@@ -35,6 +35,11 @@ class Question
     found_question.map do |question|
       Question.new(question)
     end
+  end
+
+  def self.most_liked(n)
+    QuestionLike.most_liked_questions(n)
+    #most_liked = QuestionsDatabase.instance.execute(<<-SQL)
   end
 
   def author

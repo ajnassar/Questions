@@ -1,6 +1,7 @@
 require_relative 'QuestionsDatabase.rb'
 require_relative 'question.rb'
 require_relative 'reply.rb'
+require_relative 'question_like.rb'
 class User
   attr_accessor :id, :fname, :lname
   def initialize(options)
@@ -35,6 +36,10 @@ class User
       1
     SQL
     User.new(found_user[0])
+  end
+
+  def average_karma
+
   end
 
   def authored_questions

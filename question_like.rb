@@ -83,9 +83,9 @@ class QuestionLike
       FROM
         question_likes
       JOIN
-      questions
+        questions
       ON
-      questions.id = question_likes.question_id
+        questions.id = question_likes.question_id
       GROUP BY
         question_id
       ORDER BY
@@ -97,8 +97,6 @@ class QuestionLike
       liked_questions.map do |question|
         Question.new(question)
       end
-
-
     end
 
 
